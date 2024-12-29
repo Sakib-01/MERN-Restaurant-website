@@ -1,31 +1,23 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const links = (
     <>
       <li>
-        <a>Item 1</a>
+        <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2">
-            <li>
-              <a>Submenu 1</a>
-            </li>
-            <li>
-              <a>Submenu 2</a>
-            </li>
-          </ul>
-        </details>
+        <NavLink to="/menu">Our Menu</NavLink>
       </li>
+
       <li>
-        <a>Item 3</a>
+        <NavLink>Item 3</NavLink>
       </li>
     </>
   );
   return (
-    <div className="navbar fixed z-10 w-11/12 mx-auto  bg-base-100">
+    <div className="navbar fixed z-10 bg-opacity-30 w-11/12 bg-black text-white">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -51,7 +43,7 @@ const Header = () => {
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">RR Restaurant</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>

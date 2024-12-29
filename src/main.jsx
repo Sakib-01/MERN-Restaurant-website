@@ -5,8 +5,12 @@ import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { router } from "./Routes/Route.jsx";
 
+import { HelmetProvider } from "react-helmet-async";
+
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  <HelmetProvider>
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
+  </HelmetProvider>
 );
