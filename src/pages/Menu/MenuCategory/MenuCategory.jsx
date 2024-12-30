@@ -2,6 +2,7 @@ import React from "react";
 import MenuItem from "../../shared/MenuItem";
 import SectionTitle from "../../../components/SectionTitle";
 import Cover from "../../shared/Cover/Cover";
+import { Link } from "react-router-dom";
 
 const MenuCategory = ({ items, heading, subHeading, coverImg, coverTitle }) => {
   return (
@@ -15,9 +16,12 @@ const MenuCategory = ({ items, heading, subHeading, coverImg, coverTitle }) => {
           <MenuItem key={item._id} item={item}></MenuItem>
         ))}
       </div>
-      <button className="btn btn-outline border-0 border-b-4 mt-4  flex  mx-auto">
-        View Full Menu
-      </button>
+      <Link to={`/order/${coverTitle}`}>
+        {" "}
+        <button className="btn btn-outline border-0 border-b-4 mt-4  flex  mx-auto">
+          View Full Menu
+        </button>
+      </Link>
     </section>
   );
 };

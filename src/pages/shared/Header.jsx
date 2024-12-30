@@ -12,7 +12,7 @@ const Header = () => {
       </li>
 
       <li>
-        <NavLink>Item 3</NavLink>
+        <NavLink to="/order/salad">Order food</NavLink>
       </li>
     </>
   );
