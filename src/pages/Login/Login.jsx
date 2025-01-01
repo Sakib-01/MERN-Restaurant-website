@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 // captcha
 import {
@@ -8,8 +8,12 @@ import {
   validateCaptcha,
 } from "react-simple-captcha";
 import { AuthContext } from "../../components/providers/AuthProvider";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const { signIn } = useContext(AuthContext);
   const [disabled, setDisabled] = useState(true);
   const handleLogin = (e) => {
@@ -21,6 +25,7 @@ const Login = () => {
     signIn(email, password).then((result) => {
       const user = result.user;
       console.log(user);
+      navigate(from, { replace: true });
     });
   };
   //   for captcha
@@ -28,11 +33,9 @@ const Login = () => {
     loadCaptchaEnginge(6);
   }, []);
 
-  const captchaRef = useRef(null);
   const handleValidateCaptcha = (e) => {
-    const captchaValue = captchaRef.current.value;
-    if (validateCaptcha(captchaValue) == true) {
-      alert("Captcha Matched");
+    const captchaValue = e.target.value;
+    if (validateCaptcha(captchaValue)) {
       setDisabled(false);
     } else {
       alert("Captcha Does Not Match");
@@ -86,19 +89,13 @@ const Login = () => {
                 <LoadCanvasTemplate />{" "}
               </label>
               <input
-                type="texy"
+                onBlur={handleValidateCaptcha}
+                type="text"
                 name="captcha"
-                ref={captchaRef}
                 placeholder="Type the above text"
                 className="input input-bordered"
                 required
               />
-              <button
-                onClick={handleValidateCaptcha}
-                className="btn btn-outline btn-xs "
-              >
-                Validate{" "}
-              </button>
             </div>
             <div className="form-control mt-6">
               <input
@@ -109,6 +106,11 @@ const Login = () => {
               />
             </div>
           </form>
+          <p>
+            <small>
+              New Here? <Link to="/signup">Create an account</Link>{" "}
+            </small>
+          </p>
         </div>
       </div>
     </div>

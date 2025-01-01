@@ -1,7 +1,13 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../../components/providers/AuthProvider";
+import { space } from "postcss/lib/list";
+import { FaShoppingCart } from "react-icons/fa";
+import useCart from "../../hooks/useCart";
 
 const Header = () => {
+  const { user, logout } = useContext(AuthContext);
+  const [cart] = useCart();
   const links = (
     <>
       <li>
@@ -19,6 +25,14 @@ const Header = () => {
       </li>
       <li>
         <NavLink to="/signup">Sign up</NavLink>
+      </li>
+      <li>
+        <NavLink to="/dashboard/cart">
+          <button className="btn btn-ghost">
+            <FaShoppingCart className="mr-3"></FaShoppingCart>
+            <div className="badge badge-secondary">+{cart.length}</div>
+          </button>
+        </NavLink>
       </li>
     </>
   );
@@ -44,7 +58,7 @@ const Header = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-black rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {links}
           </ul>
@@ -55,7 +69,18 @@ const Header = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <a className="btn btn-primary">Button</a>
+        {user ? (
+          <>
+            <button className="btn btn-ghost">
+              <FaShoppingCart className="mr-3"></FaShoppingCart>
+              <div className="badge badge-secondary">+{cart.length}</div>
+            </button>
+            {/* <span className="mr-2">{user.email}</span> */}
+            <button onClick={logout}>logout</button>
+          </>
+        ) : (
+          <NavLink to="/login">Login</NavLink>
+        )}
       </div>
     </div>
   );
