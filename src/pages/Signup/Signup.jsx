@@ -3,8 +3,12 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../components/providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { FaGoogle } from "react-icons/fa";
+import SocialLogin from "../shared/socialLogin/SocialLogin";
 
 const Signup = () => {
+  const axiosPublic = useAxiosPublic();
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
   const {
@@ -21,9 +25,17 @@ const Signup = () => {
       console.log(loggeduser);
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
-          console.log("user info");
-          reset();
-          navigate("/");
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user info");
+              reset();
+              navigate("/");
+            }
+          });
         })
         .catch((err) => console.log(err));
     });
@@ -144,6 +156,7 @@ const Signup = () => {
                 />
               </div>
             </form>
+            <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>

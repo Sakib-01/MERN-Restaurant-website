@@ -9,6 +9,8 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../components/providers/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
+import SocialLogin from "../shared/socialLogin/SocialLogin";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -106,6 +108,7 @@ const Login = () => {
               />
             </div>
           </form>
+          <SocialLogin></SocialLogin>
           <p>
             <small>
               New Here? <Link to="/signup">Create an account</Link>{" "}

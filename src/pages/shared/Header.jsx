@@ -75,6 +75,11 @@ const Header = () => {
               <FaShoppingCart className="mr-3"></FaShoppingCart>
               <div className="badge badge-secondary">+{cart.length}</div>
             </button>
+            <img
+              className="w-10 mr-2 rounded-full"
+              src={user?.photoURL}
+              alt=""
+            />
             {/* <span className="mr-2">{user.email}</span> */}
             <button onClick={logout}>logout</button>
           </>
